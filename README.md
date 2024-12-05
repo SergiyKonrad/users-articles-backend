@@ -28,7 +28,7 @@ Follow these steps to set up and run the server locally.
 #### Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/SergiyKonrad/users-articles-backend.git
 ```
 
 cd users-articles-backend
