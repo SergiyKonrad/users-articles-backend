@@ -30,15 +30,15 @@ app.get('/users/:userId', (req, res) => {
   if (!user) {
     return res.status(404).send('User not found')
   }
-  app.set('views', path.join(__dirname, 'views', 'pug')) // Temporarily set PUG views directory
-  app.set('view engine', 'pug') // Temporarily set PUG as the engine
+  app.set('views', path.join(__dirname, 'views', 'pug'))
+  app.set('view engine', 'pug')
   res.render('userDetails', { title: 'User Details', user })
 })
 
 // Routes for /articles (EJS)
 app.get('/articles', (req, res) => {
-  app.set('views', path.join(__dirname, 'views', 'ejs')) // Temporarily set EJS views directory
-  app.set('view engine', 'ejs') // Temporarily set EJS as the engine
+  app.set('views', path.join(__dirname, 'views', 'ejs'))
+  app.set('view engine', 'ejs')
   res.render('articles', { title: 'Articles', articles })
 })
 

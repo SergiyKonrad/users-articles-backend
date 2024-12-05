@@ -1,76 +1,103 @@
-# API Material Product Manager
+# Users & Articles Backend
 
-A REST API for managing product data, built using **Node.js**, **Express**, and **MongoDB**.
+## Overview
 
-Explore the full project at [React TS Material Product Manager](https://react-ts-material-product-manager.vercel.app/).
+This project is a simple Express.js server showcasing the use of two template engines: **PUG** and **EJS**. The server handles user and article data, rendering views dynamically using these engines.
+
+---
 
 ## Features
 
-### CRUD Operations
+- **Dynamic Rendering**:
+  - PUG is used for `/users` routes.
+  - EJS is used for `/articles` routes.
+- **Static File Support**: Serves CSS and other static files from the `public` directory.
+- **Dynamic Routes**: Supports detailed views for individual users and articles.
 
-- **`GET /api/products`**: Fetch all products.
-- **`POST /api/product`**: Add a new product.
-- **`PUT /api/product/:id`**: Update an existing product by ID.
-- **`DELETE /api/product/:id`**: Delete a product by ID.
+---
 
-### Security Features
+### Prerequisites
 
-- **Trust Proxy**: Configured for accurate client IP detection behind a reverse proxy (e.g., Render).
-- **Rate Limiting**: Limits requests to prevent abuse and ensure server stability.
-- **CORS Enabled**: Allows cross-origin requests for seamless integration with frontend applications.
-- **Helmet Integration**: Enhances API security by setting secure HTTP headers.
+- Node.js (version 14 or above)
+- npm (Node Package Manager)
 
-### Validation
+## Installation
 
-- Backend validation for product fields (`name`, `description`, `price`, and `image`).
-- Robust error handling ensures invalid data is not accepted.
+Follow these steps to set up and run the server locally.
 
-### MongoDB Integration
+#### Clone the repository:
 
-- Utilizes **Mongoose** for schema modeling and database interaction.
-- Automatically assigns a placeholder image URL (`https://via.placeholder.com/150`) if no image is provided.
+```bash
+git clone <repository-url>
+```
 
-## Tech Stack
+cd users-articles-backend
 
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (Mongoose for schema modeling)
-- **Dev Tools**: Nodemon, dotenv, colors
+#### Install dependencies:
 
-## Access the App
+```
+npm install
+```
 
-The app is hosted on **Render**:  
-[https://api-material-product-manager.onrender.com](https://api-material-product-manager.onrender.com)
+#### Start the server:
 
-### Endpoints
+```
+npm start
+```
 
-- **Fetch all products**:  
-   [https://api-material-product-manager.onrender.com/api/products](https://api-material-product-manager.onrender.com/api/products)  
-   Open this endpoint in your browser to retrieve all products as JSON.
+#### Alternatively, for development:
 
-  ### Security Note
+```
+npm run dev
+```
 
-  This API is publicly accessible. Ensure proper authentication and validation when using or extending the API. Avoid exposing sensitive data and secure your environment variables.
+#### Visit the server in your browser at:
 
-## Notes
+```
+http://localhost:8000
+```
 
-- **Logs**: For production, clean up logs by commenting out or removing `console.log` statements.
-- **Environment Variables**: Store sensitive environment variables (e.g., `PORT`, `MONGO_URI`) in a `.env` file. Add `.env` to your `.gitignore` file to keep it secure.
+## Routes
 
-## Contributions
+### `/users` (PUG)
 
-Contributions are welcome!
+#### GET /users:
 
-Feel free to:
+- **Description**: Displays a list of users.
+- **Response Data**:
+  - `id`: The user's ID.
+  - `name`: The user's name.
+  - `email`: The user's email.
 
-- Open an issue for reporting bugs or suggesting new features.
-- Submit a pull request to propose improvements or fixes.
+#### GET /users/:userId:
+
+- **Description**: Displays details for a specific user.
+- **Parameters**:
+  - `userId`: The ID of the user to fetch.
+- **Response Data**:
+  - `name`: The user's name.
+  - `email`: The user's email.
+
+### `/articles` (EJS)
+
+#### GET /articles:
+
+- **Description**: Displays a list of articles.
+- **Response Data**:
+  - `id`: The article's ID.
+  - `title`: The article's title.
+  - `content`: The article's content.
+
+#### GET /articles/:articleId:
+
+- **Description**: Displays details for a specific article.
+- **Parameters**:
+  - `articleId`: The ID of the article to fetch.
+- **Response Data**:
+  - `title`: The article's title.
+  - `content`: The article's content.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENCE) file for details.
-
-<!--
-http://localhost:8000/users
-http://localhost:8000/users/1
-http://localhost:8000/articles
-http://localhost:8000/articles/1 -->
+This project is licensed under the **MIT License**.
+You are free to use, modify, and distribute this project, provided that the original copyright and permission notice are included in all copies or substantial portions of the Software.
