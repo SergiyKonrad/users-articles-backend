@@ -25,13 +25,26 @@ This project is a simple Express.js server showcasing the use of two template en
 
 Follow these steps to set up and run the server locally.
 
-#### Clone the repository:
+### Clone the Repository
 
-```bash
+Before cloning, navigate to the desired directory in your terminal first, using the `cd` command. For example:
+
+```
+cd path/to/your/directory
+```
+
+Then, clone the repository locally by running:
+
+```
 git clone https://github.com/SergiyKonrad/users-articles-backend.git
 ```
 
-cd users-articles-backend
+You can also view the repository on GitHub:
+
+```
+https://github.com/SergiyKonrad/users-articles-backend.git
+
+```
 
 #### Install dependencies:
 
