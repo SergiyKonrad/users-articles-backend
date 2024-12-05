@@ -57,6 +57,20 @@ npm run dev
 http://localhost:8000
 ```
 
+## Testing Routes
+
+You can test the server's routes in your browser or using tools like Postman.
+
+### PUG Routes:
+
+- **User List**: [http://localhost:8000/users](http://localhost:8000/users)
+- **User Details**: [http://localhost:8000/users/1](http://localhost:8000/users/1)
+
+### EJS Routes:
+
+- **Articles List**: [http://localhost:8000/articles](http://localhost:8000/articles)
+- **Article Details**: [http://localhost:8000/articles/1](http://localhost:8000/articles/1)
+
 ## Routes
 
 ### `/users` (PUG)
