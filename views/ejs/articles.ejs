@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+  <h1>Articles</h1>
+  <ul>
+    <% articles.forEach((article)=> { %>
+      <li>
+        <a href="/articles/<%= article.id %>">
+          <%= article.title %>
+        </a>
+      </li>
+      <% }); %>
+  </ul>
+</body>
+
+</html>
