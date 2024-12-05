@@ -68,3 +68,9 @@ Feel free to:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENCE) file for details.
+
+<!--
+http://localhost:8000/users
+http://localhost:8000/users/1
+http://localhost:8000/articles
+http://localhost:8000/articles/1 -->

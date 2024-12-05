@@ -1,20 +1,29 @@
 {
+  "name": "users-articles-backend",
+  "version": "1.0.0",
+  "description": "A backend application for managing user and article data using Node.js, Express, and templating engines (PUG and EJS).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Sergiy Konrad",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
     "pug": "^3.0.3"
   },
-  "name": "users-articles-backend",
-  "version": "1.0.0",
-  "description": "A REST API for managing product data, built using **Node.js**, **Express**, and **MongoDB**.",
-  "main": "server.js",
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "node.js",
+    "express",
+    "backend",
+    "pug",
+    "ejs",
+    "template-engines"
+  ]
 }
