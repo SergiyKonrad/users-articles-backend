@@ -3,7 +3,9 @@ html
   head
     title #{title}
     link(rel="stylesheet", href="/css/styles.css")
-  body
+    link(rel="icon", href=favicon)
+
+  body(class=theme)
     h1 User List
     ul
       each user in users

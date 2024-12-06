@@ -10,9 +10,11 @@
   "author": "Sergiy Konrad",
   "license": "MIT",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "pug": "^3.0.3"
   },
   "devDependencies": {

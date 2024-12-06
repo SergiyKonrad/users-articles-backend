@@ -6,9 +6,11 @@
     <%= title %>
   </title>
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" href="<%= favicon %>">
 </head>
 
-<body>
+
+<body class="<%= theme %>">
   <h1>Articles</h1>
   <ul>
     <% articles.forEach((article)=> { %>
