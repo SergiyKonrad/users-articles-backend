@@ -48,7 +48,8 @@ router.post('/login', (req, res) => {
   }
   const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' })
   res.cookie('authToken', token, {
-    httpOnly: false, // Allow client-side access (for development only)
+    httpOnly: true, // Ensures the cookie is not accessible via client-side scripts
+    // httpOnly: false, // Allow client-side access (for development only)
     secure: false, // Use true in production with HTTPS
     sameSite: 'Lax', // Ensure the cookie works across same-origin requests
     path: '/', // Ensure the cookie is available for all routes

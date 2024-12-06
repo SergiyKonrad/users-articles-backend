@@ -2,24 +2,34 @@
 
 ## Overview
 
-This project is a simple Express.js server showcasing the use of two template engines: **PUG** and **EJS**. The server handles user and article data, rendering views dynamically using these engines.
+This project is a simple Express.js server showcasing the use of two template engines: **PUG** and **EJS**. The server handles user and article data, rendering views dynamically using these engines. It also includes **JWT-based authentication**, theme preference storage using **cookies**, and support for serving a custom favicon.
 
 ---
 
 ## Features
 
 - **Dynamic Rendering**:
-  - PUG is used for `/users` routes.
-  - EJS is used for `/articles` routes.
-- **Static File Support**: Serves CSS and other static files from the `public` directory.
-- **Dynamic Routes**: Supports detailed views for individual users and articles.
+  - **PUG** for `/users` routes.
+  - **EJS** for `/articles` routes.
+- **JWT Integration**:
+  - User authentication and protected routes with **JWT (JSON Web Tokens)**.
+- **Cookie Support**:
+  - Theme preference stored in cookies using `cookie-parser`.
+  - Secure token storage with `httpOnly` cookies for authentication.
+- **Static File Support**:
+  - Serves CSS and other static files from the `public` directory.
+  - Custom `favicon.ico` served for all pages.
+- **Dynamic Routes**:
+  - Supports detailed views for individual users and articles.
 
 ---
 
-### Prerequisites
+## Prerequisites
 
-- Node.js (version 14 or above)
-- npm (Node Package Manager)
+- **Node.js** (version 14 or above)
+- **npm** (Node Package Manager)
+
+---
 
 ## Installation
 
@@ -27,16 +37,11 @@ Follow these steps to set up and run the server locally.
 
 ### Clone the Repository
 
-Before cloning, navigate to the desired directory in your terminal first, using the `cd` command. For example:
+Navigate to the desired directory in your terminal and run:
 
-```
-cd path/to/your/directory
-```
-
-Then, clone the repository locally by running:
-
-```
+```bash
 git clone https://github.com/SergiyKonrad/users-articles-backend.git
+
 ```
 
 You can also view the repository on GitHub:
@@ -69,20 +74,6 @@ npm run dev
 ```
 http://localhost:8000
 ```
-
-## Testing Routes
-
-You can test the server's routes in your browser or using tools like Postman.
-
-### PUG Routes:
-
-- **User List**: [http://localhost:8000/users](http://localhost:8000/users)
-- **User Details**: [http://localhost:8000/users/1](http://localhost:8000/users/1)
-
-### EJS Routes:
-
-- **Articles List**: [http://localhost:8000/articles](http://localhost:8000/articles)
-- **Article Details**: [http://localhost:8000/articles/1](http://localhost:8000/articles/1)
 
 ## Routes
 
@@ -124,7 +115,49 @@ You can test the server's routes in your browser or using tools like Postman.
   - `title`: The article's title.
   - `content`: The article's content.
 
-## Instructions for how to interact with your API endpoints during testing in DevTools console:
+### Authentication Routes (`/register`, `/login`, `/protected`)
+
+#### **POST /register**
+
+Registers a new user by accepting `username` and `password`.
+
+#### **POST /login**
+
+Authenticates the user and returns a JWT stored in an `httpOnly` cookie.
+
+#### **GET /protected**
+
+A protected route accessible only to authenticated users with a valid JWT.
+
+### Theme Route (`/set-theme`)
+
+#### **POST /set-theme**
+
+Sets the user's theme preference (e.g., dark or white) in a cookie with a 7-day expiry.
+
+---
+
+### JWT Integration
+
+This project uses **JSON Web Tokens (JWT)** for secure authentication:
+
+- The `authToken` is stored in an `httpOnly` cookie for security.
+- The token is verified on protected routes to ensure that only authenticated users can access them.
+
+### Cookie Management
+
+- Cookies are parsed and managed using **cookie-parser**.
+- **Theme Cookie**: Stores user preferences for site themes (e.g., dark or white).
+- **authToken Cookie**: Stored as `httpOnly` to enhance security and prevent client-side tampering.
+
+---
+
+### Serving Static Files and Favicon
+
+- Static files (e.g., CSS) are served from the `public` directory.
+- A custom `favicon.ico` is provided and served for all pages.
+
+## Testing API Endpoints in DevTools Console
 
 ### Register a New User
 
@@ -176,8 +209,6 @@ body: JSON.stringify({ theme: 'white' }),
 .then(response => response.text())
 .then(data => console.log(data))
 .catch(err => console.error(err));
-
-or
 
 ### Set Theme to Dark
 
