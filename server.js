@@ -4,6 +4,7 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const authRoutes = require('./routes/auth')
+const themeRoutes = require('./routes/theme')
 const app = express()
 
 // Middleware for serving static files
@@ -14,12 +15,13 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
-// Middleware for theme and favicon (MUST come before routes)
-app.use((req, res, next) => {
-  res.locals.favicon = '/favicon.ico' // Automatically include favicon
-  res.locals.theme = req.cookies.theme || 'default' // Default theme if no cookie
-  next() // Pass control to the next middleware or route
-})
+// Global Middleware for theme and favicon to simplify route handlers (MUST come before routes)
+
+// app.use((req, res, next) => {
+//   res.locals.favicon = '/favicon.ico'
+//   res.locals.theme = req.cookies.theme || 'default'
+//   next()
+// })
 
 // Dummy data
 const users = [
@@ -32,20 +34,6 @@ const articles = [
   { id: 2, title: 'Article Two', content: 'This is the second article.' },
 ]
 
-// Route to set theme in cookies (AFTER cookie-parser middleware)
-app.post('/set-theme', (req, res) => {
-  const { theme } = req.body
-  if (!theme) {
-    return res.status(400).send('Theme is required')
-  }
-  // Set the theme cookie with a 7-day expiry
-  res.cookie('theme', theme, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-    httpOnly: true, // Prevent client-side access to the cookie
-  })
-  res.send(`Theme set to ${theme}`)
-})
-
 // Routes for /users (PUG)
 
 app.get('/users', (req, res) => {
@@ -53,8 +41,8 @@ app.get('/users', (req, res) => {
   res.render('users', {
     title: 'User List',
     users,
-    theme, // Pass theme to the template
-    favicon: res.locals.favicon, // Automatically include favicon
+    theme, // Explicitly pass the theme
+    favicon: res.locals.favicon, // Explicitly pass the favicon
   })
 })
 
@@ -108,6 +96,8 @@ app.get('/articles/:articleId', (req, res) => {
 
 // Use separate authentication routes (JWT logic).
 app.use(authRoutes)
+// Use theme routes
+app.use(themeRoutes)
 
 // Start the server.
 const PORT = process.env.PORT || 3000
