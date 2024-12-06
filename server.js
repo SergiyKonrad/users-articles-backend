@@ -2,10 +2,19 @@ require('dotenv').config()
 
 const express = require('express')
 const path = require('path')
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const authRoutes = require('./routes/auth')
 const themeRoutes = require('./routes/theme')
 const app = express()
+
+// CORS configuration
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:8000', // Adjust for your frontend origin
+  }),
+)
 
 // Middleware for serving static files
 app.use(express.static(path.join(__dirname, 'public')))
@@ -15,12 +24,26 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
+// Content Security Policy header (for development purposes only)
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; connect-src 'self'",
+  )
+  next()
+})
+
 // Global Middleware for theme and favicon to simplify route handlers (MUST come before routes)
 
-// app.use((req, res, next) => {
-//   res.locals.favicon = '/favicon.ico'
-//   res.locals.theme = req.cookies.theme || 'default'
-//   next()
+app.use((req, res, next) => {
+  res.locals.favicon = '/favicon.ico'
+  res.locals.theme = req.cookies.theme || 'default'
+  next()
+})
+
+// Route for serving favicon if custom logic for serving the favicon needed.
+// app.get('/favicon.ico', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'favicon.ico'))
 // })
 
 // Dummy data
@@ -34,26 +57,20 @@ const articles = [
   { id: 2, title: 'Article Two', content: 'This is the second article.' },
 ]
 
-// Routes for /users (PUG)
-
+// Route for /users (PUG template)
 app.get('/users', (req, res) => {
-  const theme = req.cookies.theme || 'default' // Default theme if no cookie exists
+  app.set('views', path.join(__dirname, 'views', 'pug')) // Temporarily set PUG views directory
+  app.set('view engine', 'pug') // Temporarily set PUG as the engine
+  const theme = req.cookies.theme || 'default'
   res.render('users', {
     title: 'User List',
     users,
-    theme, // Explicitly pass the theme
+    theme,
     favicon: res.locals.favicon, // Explicitly pass the favicon
   })
 })
 
-// global defaults approach for widely shared values
-
-// app.get('/users', (req, res) => {
-//   app.set('views', path.join(__dirname, 'views', 'pug')) // Temporarily set PUG views directory
-//   app.set('view engine', 'pug') // Temporarily set PUG as the engine
-//   res.render('users', { title: 'User List', users })
-// })
-
+// Route for user details (PUG template)
 app.get('/users/:userId', (req, res) => {
   const user = users.find((u) => u.id === parseInt(req.params.userId))
   if (!user) {
@@ -64,26 +81,14 @@ app.get('/users/:userId', (req, res) => {
   res.render('userDetails', { title: 'User Details', user })
 })
 
-// Routes for /articles (EJS)
-
+// Route for /articles (EJS template)
 app.get('/articles', (req, res) => {
-  const theme = req.cookies.theme || 'default'
-  res.render('articles', {
-    title: 'Articles',
-    articles,
-    theme, // Explicitly pass the theme
-    favicon: '/favicon.ico', // Explicitly pass the favicon
-  })
+  app.set('views', path.join(__dirname, 'views', 'ejs'))
+  app.set('view engine', 'ejs')
+  res.render('articles', { title: 'Articles', articles })
 })
 
-// global defaults approach for widely shared values
-
-// app.get('/articles', (req, res) => {
-//   app.set('views', path.join(__dirname, 'views', 'ejs'))
-//   app.set('view engine', 'ejs')
-//   res.render('articles', { title: 'Articles', articles })
-// })
-
+// Route for article details (EJS template)
 app.get('/articles/:articleId', (req, res) => {
   const article = articles.find((a) => a.id === parseInt(req.params.articleId))
   if (!article) {
@@ -94,7 +99,7 @@ app.get('/articles/:articleId', (req, res) => {
   res.render('articleDetails', { title: 'Article Details', article })
 })
 
-// Use separate authentication routes (JWT logic).
+// Use authentication routes (JWT logic).
 app.use(authRoutes)
 // Use theme routes
 app.use(themeRoutes)

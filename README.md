@@ -124,6 +124,73 @@ You can test the server's routes in your browser or using tools like Postman.
   - `title`: The article's title.
   - `content`: The article's content.
 
+## Instructions for how to interact with your API endpoints during testing in DevTools console:
+
+### Register a New User
+
+fetch('/register', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+username: 'testuser',
+password: 'password',
+}),
+})
+.then(response => response.text())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+
+### Login with Existing User
+
+fetch('/login', {
+method: 'POST',
+credentials: 'include',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+username: 'testuser',
+password: 'password',
+}),
+})
+.then(response => response.text())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+
+### Access Protected Route
+
+fetch('/protected', {
+method: 'GET',
+credentials: 'include', // Ensure cookies are sent
+})
+.then(response => response.text())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+
+### Set Theme to White
+
+fetch('/set-theme', {
+method: 'POST',
+credentials: 'include',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ theme: 'white' }),
+})
+.then(response => response.text())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+
+or
+
+### Set Theme to Dark
+
+fetch('/set-theme', {
+method: 'POST',
+credentials: 'include',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ theme: 'dark' }),
+})
+.then(response => response.text())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+
 ## License
 
 This project is licensed under the **MIT License**.
