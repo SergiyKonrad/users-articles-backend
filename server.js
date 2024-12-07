@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   next()
 })
 
-// Global Middleware for theme and favicon to simplify route handlers (MUST come before routes)
+// Global Middleware for theme and favicon to simplify route handlers
 
 app.use((req, res, next) => {
   res.locals.favicon = '/favicon.ico'
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
   next()
 })
 
-// Route for serving favicon if custom logic for serving the favicon needed.
+// Route for serving favicon if custom logic needed.
 // app.get('/favicon.ico', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'public', 'favicon.ico'))
 // })
@@ -70,7 +70,7 @@ app.get('/users', (req, res) => {
   })
 })
 
-// Route for user details (PUG template)
+// Route for users details (PUG template)
 app.get('/users/:userId', (req, res) => {
   const user = users.find((u) => u.id === parseInt(req.params.userId))
   if (!user) {
@@ -88,7 +88,7 @@ app.get('/articles', (req, res) => {
   res.render('articles', { title: 'Articles', articles })
 })
 
-// Route for article details (EJS template)
+// Route for articles details (EJS template)
 app.get('/articles/:articleId', (req, res) => {
   const article = articles.find((a) => a.id === parseInt(req.params.articleId))
   if (!article) {

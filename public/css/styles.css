@@ -27,36 +27,37 @@ ul li {
   margin: 10px 0;
 }
 
+body.white {
+  background-color: #fff;
+  color: #000;
+}
+
+body.white h1 {
+  color: #2a1c1c;
+}
+
+body.white a {
+  color: #0253aa;
+}
+
+body.white a:hover {
+  color: #013e7e;
+}
+
+/*  "theme": "dark" */
 body.dark {
-  background-color: #333; /* Dark background */
+  background-color: #333;
   color: #fff; /* Light text */
 }
 
 body.dark h1 {
-  color: #fff; /* Adjust header color in dark mode */
+  color: #fff;
 }
 
 body.dark a {
-  color: #ffcc00; /* Adjust link color in dark mode */
+  color: #ffcc00;
 }
 
 body.dark a:hover {
-  color: #fee686; /* Link hover color */
-}
-
-body.white {
-  background-color: #fff; /* White background */
-  color: #000; /* Black text */
-}
-
-body.white h1 {
-  color: #333; /* Header color */
-}
-
-body.white a {
-  color: #007bff; /* Link color */
-}
-
-body.white a:hover {
-  color: #0056b3; /* Link hover color */
+  color: #fee06a;
 }
