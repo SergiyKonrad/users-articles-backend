@@ -7,7 +7,8 @@ router.post('/set-theme', (req, res) => {
   if (!theme) {
     return res.status(400).send('Theme is required')
   }
-  // Set the theme cookie with a 7-day expiry
+
+  // Set the theme cookie
   res.cookie('theme', theme, {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
     httpOnly: false, // Allow client-side access (for testing only)

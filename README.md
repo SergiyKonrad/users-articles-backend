@@ -198,18 +198,6 @@ credentials: 'include', // Ensure cookies are sent
 .then(data => console.log(data))
 .catch(err => console.error(err));
 
-### Set Theme to White
-
-fetch('/set-theme', {
-method: 'POST',
-credentials: 'include',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ theme: 'white' }),
-})
-.then(response => response.text())
-.then(data => console.log(data))
-.catch(err => console.error(err));
-
 ### Set Theme to Dark
 
 fetch('/set-theme', {
@@ -217,6 +205,18 @@ method: 'POST',
 credentials: 'include',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ theme: 'dark' }),
+})
+.then(response => response.text())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+
+### Set Theme to White
+
+fetch('/set-theme', {
+method: 'POST',
+credentials: 'include',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ theme: 'white' }),
 })
 .then(response => response.text())
 .then(data => console.log(data))

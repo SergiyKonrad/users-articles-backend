@@ -5,9 +5,10 @@ const cookieParser = require('cookie-parser')
 const router = express.Router()
 
 // Secret key for JWT
+// const SECRET_KEY = process.env.JWT_SECRET;
 const SECRET_KEY = 'your_secret_key'
 
-// Temporary in-memory database for users
+// Temporary in-memory database for users! Replace usersDB with a real database (e.g., MongoDB)
 const usersDB = []
 
 // Middleware for parsing cookies
@@ -32,7 +33,7 @@ router.post('/register', (req, res) => {
   if (existingUser) {
     return res.status(400).send('User already exists')
   }
-  // Store plaintext password (not secure, but for demonstration purposes)
+  // Store plaintext password (not secure, for development purposes)
   usersDB.push({ username, password })
   res.send('User registered successfully')
 })
@@ -50,7 +51,7 @@ router.post('/login', (req, res) => {
   res.cookie('authToken', token, {
     httpOnly: true, // Ensures the cookie is not accessible via client-side scripts
     // httpOnly: false, // Allow client-side access (for development only)
-    secure: false, // Use true in production with HTTPS
+    secure: false, // Use true in production with HTTPS !!!
     sameSite: 'Lax', // Ensure the cookie works across same-origin requests
     path: '/', // Ensure the cookie is available for all routes
   })
@@ -58,10 +59,11 @@ router.post('/login', (req, res) => {
 })
 
 // Middleware to protect routes
+
 const authenticate = (req, res, next) => {
   const token = req.cookies.authToken
   if (!token) {
-    // console.log('No authToken cookie found') // Debug missing token
+    // console.log('No authToken cookie found')
     return res.status(401).send('Unauthorized')
   }
   try {
@@ -84,3 +86,13 @@ router.get('/protected', authenticate, (req, res) => {
 })
 
 module.exports = router
+
+/*
+router.get('/protected', authenticate, (req, res) => {
+  res.render('protectedPage', {
+    title: 'Protected Page',
+    username: req.user.username,
+    theme: req.cookies.theme || 'default',
+  });
+});
+*/
