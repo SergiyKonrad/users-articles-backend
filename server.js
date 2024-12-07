@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 //   res.sendFile(path.join(__dirname, 'public', 'favicon.ico'))
 // })
 
-// Dummy data
+// Dummy data.
 const users = [
   { id: 1, name: 'Alice', email: 'alice@example.com' },
   { id: 2, name: 'Bob', email: 'bob@example.com' },
@@ -61,11 +61,11 @@ const articles = [
 app.get('/users', (req, res) => {
   app.set('views', path.join(__dirname, 'views', 'pug')) // Temporarily set PUG views directory
   app.set('view engine', 'pug') // Temporarily set PUG as the engine
-  const theme = req.cookies.theme || 'default'
+  // const theme = req.cookies.theme || 'default'
   res.render('users', {
     title: 'User List',
     users,
-    theme,
+    theme: res.locals.theme, // Access the global theme
     favicon: res.locals.favicon, // Explicitly pass the favicon
   })
 })
@@ -78,14 +78,24 @@ app.get('/users/:userId', (req, res) => {
   }
   app.set('views', path.join(__dirname, 'views', 'pug'))
   app.set('view engine', 'pug')
-  res.render('userDetails', { title: 'User Details', user })
+  res.render('userDetails', {
+    title: 'User Details',
+    user,
+    theme: res.locals.theme,
+    favicon: res.locals.favicon, // Access the global favicon
+  })
 })
 
 // Route for /articles (EJS template)
 app.get('/articles', (req, res) => {
   app.set('views', path.join(__dirname, 'views', 'ejs'))
   app.set('view engine', 'ejs')
-  res.render('articles', { title: 'Articles', articles })
+  res.render('articles', {
+    title: 'Articles',
+    articles,
+    theme: res.locals.theme,
+    favicon: res.locals.favicon,
+  })
 })
 
 // Route for articles details (EJS template)
@@ -96,7 +106,12 @@ app.get('/articles/:articleId', (req, res) => {
   }
   app.set('views', path.join(__dirname, 'views', 'ejs'))
   app.set('view engine', 'ejs')
-  res.render('articleDetails', { title: 'Article Details', article })
+  res.render('articleDetails', {
+    title: 'Article Details',
+    article,
+    theme: res.locals.theme,
+    favicon: res.locals.favicon,
+  })
 })
 
 // Use authentication routes (JWT logic).
