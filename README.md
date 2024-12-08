@@ -8,26 +8,26 @@ This project is a simple Express.js server showcasing the use of two template en
 
 ## Features
 
-- **Dynamic Rendering**:
-  - **PUG** for `/users` routes.
-  - **EJS** for `/articles` routes.
-- **JWT Integration**:
-  - User authentication and protected routes with **JWT (JSON Web Tokens)**.
-- **Cookie Support**:
-  - Theme preference stored in cookies using `cookie-parser`.
-  - Secure token storage with `httpOnly` cookies for authentication.
-- **Static File Support**:
-  - Serves CSS and other static files from the `public` directory.
-  - Custom `favicon.ico` served for all pages.
-- **Dynamic Routes**:
-  - Supports detailed views for individual users and articles.
+-   **Dynamic Rendering**:
+    -   **PUG** for `/users` routes.
+    -   **EJS** for `/articles` routes.
+-   **JWT Integration**:
+    -   User authentication and protected routes with **JWT (JSON Web Tokens)**.
+-   **Cookie Support**:
+    -   Theme preference stored in cookies using `cookie-parser`.
+    -   Secure token storage with `httpOnly` cookies for authentication.
+-   **Static File Support**:
+    -   Serves CSS and other static files from the `public` directory.
+    -   Custom `favicon.ico` served for all pages.
+-   **Dynamic Routes**:
+    -   Supports detailed views for individual users and articles.
 
 ---
 
 ## Prerequisites
 
-- **Node.js** (version 14 or above)
-- **npm** (Node Package Manager)
+-   **Node.js** (version 14 or above)
+-   **npm** (Node Package Manager)
 
 ---
 
@@ -81,39 +81,39 @@ http://localhost:8000
 
 #### GET /users:
 
-- **Description**: Displays a list of users.
-- **Response Data**:
-  - `id`: The user's ID.
-  - `name`: The user's name.
-  - `email`: The user's email.
+-   **Description**: Displays a list of users.
+-   **Response Data**:
+    -   `id`: The user's ID.
+    -   `name`: The user's name.
+    -   `email`: The user's email.
 
 #### GET /users/:userId:
 
-- **Description**: Displays details for a specific user.
-- **Parameters**:
-  - `userId`: The ID of the user to fetch.
-- **Response Data**:
-  - `name`: The user's name.
-  - `email`: The user's email.
+-   **Description**: Displays details for a specific user.
+-   **Parameters**:
+    -   `userId`: The ID of the user to fetch.
+-   **Response Data**:
+    -   `name`: The user's name.
+    -   `email`: The user's email.
 
 ### `/articles` (EJS)
 
 #### GET /articles:
 
-- **Description**: Displays a list of articles.
-- **Response Data**:
-  - `id`: The article's ID.
-  - `title`: The article's title.
-  - `content`: The article's content.
+-   **Description**: Displays a list of articles.
+-   **Response Data**:
+    -   `id`: The article's ID.
+    -   `title`: The article's title.
+    -   `content`: The article's content.
 
 #### GET /articles/:articleId:
 
-- **Description**: Displays details for a specific article.
-- **Parameters**:
-  - `articleId`: The ID of the article to fetch.
-- **Response Data**:
-  - `title`: The article's title.
-  - `content`: The article's content.
+-   **Description**: Displays details for a specific article.
+-   **Parameters**:
+    -   `articleId`: The ID of the article to fetch.
+-   **Response Data**:
+    -   `title`: The article's title.
+    -   `content`: The article's content.
 
 ### Authentication Routes (`/register`, `/login`, `/protected`)
 
@@ -141,21 +141,21 @@ Sets the user's theme preference (e.g., dark or white) in a cookie with a 7-day 
 
 This project uses **JSON Web Tokens (JWT)** for secure authentication:
 
-- The `authToken` is stored in an `httpOnly` cookie for security.
-- The token is verified on protected routes to ensure that only authenticated users can access them.
+-   The `authToken` is stored in an `httpOnly` cookie for security.
+-   The token is verified on protected routes to ensure that only authenticated users can access them.
 
 ### Cookie Management
 
-- Cookies are parsed and managed using **cookie-parser**.
-- **Theme Cookie**: Stores user preferences for site themes (e.g., dark or white).
-- **authToken Cookie**: Stored as `httpOnly` to enhance security and prevent client-side tampering.
+-   Cookies are parsed and managed using **cookie-parser**.
+-   **Theme Cookie**: Stores user preferences for site themes (e.g., dark or white).
+-   **authToken Cookie**: Stored as `httpOnly` to enhance security and prevent client-side tampering.
 
 ---
 
 ### Serving Static Files and Favicon
 
-- Static files (e.g., CSS) are served from the `public` directory.
-- A custom `favicon.ico` is provided and served for all pages.
+-   Static files (e.g., CSS) are served from the `public` directory.
+-   A custom `favicon.ico` is provided and served for all pages.
 
 ## Testing API Endpoints in DevTools Console
 

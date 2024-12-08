@@ -10,10 +10,10 @@ const app = express()
 
 // CORS configuration
 app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:8000', // Adjust for your frontend origin
-  }),
+    cors({
+        credentials: true,
+        origin: 'http://localhost:8000', // Adjust for your frontend origin
+    }),
 )
 
 // Middleware for serving static files
@@ -26,19 +26,19 @@ app.use(express.urlencoded({ extended: true }))
 
 // Content Security Policy header (for development purposes only)
 app.use((req, res, next) => {
-  res.setHeader(
-    'Content-Security-Policy',
-    "default-src 'self'; connect-src 'self'",
-  )
-  next()
+    res.setHeader(
+        'Content-Security-Policy',
+        "default-src 'self'; connect-src 'self'",
+    )
+    next()
 })
 
 // Global Middleware for theme and favicon to simplify route handlers
 
 app.use((req, res, next) => {
-  res.locals.favicon = '/favicon.ico'
-  res.locals.theme = req.cookies.theme || 'default'
-  next()
+    res.locals.favicon = '/favicon.ico'
+    res.locals.theme = req.cookies.theme || 'default'
+    next()
 })
 
 // Route for serving favicon if custom logic needed.
@@ -48,70 +48,72 @@ app.use((req, res, next) => {
 
 // Dummy data.
 const users = [
-  { id: 1, name: 'Alice', email: 'alice@example.com' },
-  { id: 2, name: 'Bob', email: 'bob@example.com' },
+    { id: 1, name: 'Alice', email: 'alice@example.com' },
+    { id: 2, name: 'Bob', email: 'bob@example.com' },
 ]
 
 const articles = [
-  { id: 1, title: 'Article One', content: 'This is the first article.' },
-  { id: 2, title: 'Article Two', content: 'This is the second article.' },
+    { id: 1, title: 'Article One', content: 'This is the first article.' },
+    { id: 2, title: 'Article Two', content: 'This is the second article.' },
 ]
 
 // Route for /users (PUG template)
 app.get('/users', (req, res) => {
-  app.set('views', path.join(__dirname, 'views', 'pug')) // Temporarily set PUG views directory
-  app.set('view engine', 'pug') // Temporarily set PUG as the engine
-  // const theme = req.cookies.theme || 'default'
-  res.render('users', {
-    title: 'User List',
-    users,
-    theme: res.locals.theme, // Access the global theme
-    favicon: res.locals.favicon, // Explicitly pass the favicon
-  })
+    app.set('views', path.join(__dirname, 'views', 'pug')) // Temporarily set PUG views directory
+    app.set('view engine', 'pug') // Temporarily set PUG as the engine
+    // const theme = req.cookies.theme || 'default'
+    res.render('users', {
+        title: 'User List',
+        users,
+        theme: res.locals.theme, // Access the global theme
+        favicon: res.locals.favicon, // Explicitly pass the favicon
+    })
 })
 
 // Route for users details (PUG template)
 app.get('/users/:userId', (req, res) => {
-  const user = users.find((u) => u.id === parseInt(req.params.userId))
-  if (!user) {
-    return res.status(404).send('User not found')
-  }
-  app.set('views', path.join(__dirname, 'views', 'pug'))
-  app.set('view engine', 'pug')
-  res.render('userDetails', {
-    title: 'User Details',
-    user,
-    theme: res.locals.theme,
-    favicon: res.locals.favicon, // Access the global favicon
-  })
+    const user = users.find((u) => u.id === parseInt(req.params.userId))
+    if (!user) {
+        return res.status(404).send('User not found')
+    }
+    app.set('views', path.join(__dirname, 'views', 'pug'))
+    app.set('view engine', 'pug')
+    res.render('userDetails', {
+        title: 'User Details',
+        user,
+        theme: res.locals.theme,
+        favicon: res.locals.favicon, // Access the global favicon
+    })
 })
 
 // Route for /articles (EJS template)
 app.get('/articles', (req, res) => {
-  app.set('views', path.join(__dirname, 'views', 'ejs'))
-  app.set('view engine', 'ejs')
-  res.render('articles', {
-    title: 'Articles',
-    articles,
-    theme: res.locals.theme,
-    favicon: res.locals.favicon,
-  })
+    app.set('views', path.join(__dirname, 'views', 'ejs'))
+    app.set('view engine', 'ejs')
+    res.render('articles', {
+        title: 'Articles',
+        articles,
+        theme: res.locals.theme,
+        favicon: res.locals.favicon,
+    })
 })
 
 // Route for articles details (EJS template)
 app.get('/articles/:articleId', (req, res) => {
-  const article = articles.find((a) => a.id === parseInt(req.params.articleId))
-  if (!article) {
-    return res.status(404).send('Article not found')
-  }
-  app.set('views', path.join(__dirname, 'views', 'ejs'))
-  app.set('view engine', 'ejs')
-  res.render('articleDetails', {
-    title: 'Article Details',
-    article,
-    theme: res.locals.theme,
-    favicon: res.locals.favicon,
-  })
+    const article = articles.find(
+        (a) => a.id === parseInt(req.params.articleId),
+    )
+    if (!article) {
+        return res.status(404).send('Article not found')
+    }
+    app.set('views', path.join(__dirname, 'views', 'ejs'))
+    app.set('view engine', 'ejs')
+    res.render('articleDetails', {
+        title: 'Article Details',
+        article,
+        theme: res.locals.theme,
+        favicon: res.locals.favicon,
+    })
 })
 
 // Use authentication routes (JWT logic).
@@ -122,7 +124,7 @@ app.use(themeRoutes)
 // Start the server.
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`),
+    console.log(`Server running on http://localhost:${PORT}`),
 )
 
 /*
